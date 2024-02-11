@@ -38,13 +38,12 @@ class Quadrilateral extends Figure{
 
     @Override
     public Point centroid() {
-        Point centroid1 = triangleCentroid(this.a, this.b, this.c);
-        Point centroid2 = triangleCentroid(this.a, this.c, this.d);
-
-        double centerX = (centroid1.getX() + centroid2.getX()) / 2.0;
-        double centerY = (centroid1.getY() + centroid2.getY()) / 2.0;
-
-        return new Point(centerX, centerY);
+        Point centrA, centrB, centrC, centrD;
+        centrA = new Triangle(b, c, d).centroid();
+        centrB = new Triangle(a, c, d).centroid();
+        centrC = new Triangle(a, b, d).centroid();
+        centrD = new Triangle(a, b, c).centroid();
+        return new Segment(centrA, centrC).intersection(new Segment(centrB, centrD));
     }
 
     private Point triangleCentroid(Point p1, Point p2, Point p3) {
